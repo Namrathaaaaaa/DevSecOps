@@ -1,1 +1,4 @@
 DevSecOps.pem
+terraform.tfstate
+.terraform
+.terraform.lock.hcl
