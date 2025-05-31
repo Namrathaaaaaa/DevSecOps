@@ -2,3 +2,5 @@ DevSecOps.pem
 terraform.tfstate
 .terraform
 .terraform.lock.hcl
+.terraform.tfstate.lock.info
+terraform.tfstate.backup

@@ -1,5 +1,5 @@
 resource "aws_instance" "web" {
-  ami                    = "ami-0af9569868786b23a"
+  ami                    = "ami-0e35ddab05955cf57"
   instance_type          = "t2.micro"
   key_name               = "DevSecOps"
   vpc_security_group_ids = [aws_security_group.jenkins-vm-sg.id]
