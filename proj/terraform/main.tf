@@ -1,19 +1,10 @@
-resource "aws_instance" "web" {
-  ami                    = "ami-0e35ddab05955cf57"
-  instance_type          = "t2.micro"
-  key_name               = "DevSecOps"
-  vpc_security_group_ids = [aws_security_group.jenkins-vm-sg.id]
-  user_data              = templatefile("./install.sh", {})
 
-  tags = {
-    Name = "Jenkins-SonarQube"
-  }
-
-  root_block_device {
-    volume_size = 40
-  }
+resource "aws_key_pair" "my_key" {
+  key_name   = "aws_keys"
+  public_key = file("./keys/aws_keys.pub")
 
 }
+
 
 resource "aws_security_group" "jenkins-vm-sg" {
   name        = "jenkins-vm-sg"
@@ -42,6 +33,23 @@ resource "aws_security_group" "jenkins-vm-sg" {
   }
   tags = {
     Name = "jenkins-vm-sg"
+  }
+
+}
+
+resource "aws_instance" "web" {
+  ami                    = "ami-0e35ddab05955cf57"
+  instance_type          = "t2.micro"
+  key_name               = aws_key_pair.my_key.key_name
+  vpc_security_group_ids = [aws_security_group.jenkins-vm-sg.id]
+  user_data              = templatefile("./install.sh", {})
+
+  tags = {
+    Name = "Jenkins-SonarQube"
+  }
+
+  root_block_device {
+    volume_size = 40
   }
 
 }
